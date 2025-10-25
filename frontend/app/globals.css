@@ -1,0 +1,454 @@
+:root {
+  color-scheme: light;
+  --primary: #1f6feb;
+  --secondary: #0f172a;
+  --background: #f8fafc;
+  --card-bg: #ffffff;
+  --text-color: #0f172a;
+  --muted: #64748b;
+  --success: #10b981;
+  --error: #ef4444;
+  --warning: #f59e0b;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+button {
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, var(--primary), #3b82f6);
+  color: white;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .logo {
+  font-weight: 700;
+  font-size: 1.25rem;
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar nav a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.3s ease;
+}
+
+.sidebar nav a:hover::before,
+.sidebar nav a.active::before {
+  left: 0;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
+  transform: scale(1.02);
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.1);
+}
+
+/* Page-specific tweak: lower the Day schedule card on doctor dashboard */
+.day-schedule {
+  margin-top: 1rem; /* push the single lower card further down from the top cards */
+}
+
+/* Page-specific tweak: lower the Next appointments card on patient dashboard */
+.lower-appointments {
+  margin-top: 1rem; /* increase space between top cards and this block */
+}
+
+/* Page-specific tweak: lower the Recent prescriptions card on patient dashboard */
+.lower-prescriptions {
+  margin-top: 1rem; /* increase space between the appointments block and prescriptions */
+}
+
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.table th {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  background: rgba(15, 23, 42, 0.02);
+}
+
+.table tbody tr:hover {
+  background: rgba(31, 111, 235, 0.05);
+}
+
+.primary-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  /* tightened transition and smaller final size to avoid overlapping nearby elements */
+  transition: width 0.35s ease, height 0.35s ease;
+  transform: translate(-50%, -50%);
+}
+
+.primary-btn:hover::before {
+  width: 120px;
+  height: 120px;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(31, 111, 235, 0.3);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.form-grid.two-column {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #cbd5f5;
+  background: #f1f5f9;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.1);
+  transform: scale(1.02);
+}
+
+.status-badge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.status-badge:hover {
+  transform: scale(1.05);
+}
+
+.status-pending {
+  background: #fde68a;
+  color: #92400e;
+}
+
+.status-confirmed {
+  background: #bbf7d0;
+  color: #166534;
+}
+
+.status-completed {
+  background: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.status-cancelled {
+  background: #fecaca;
+  color: #b91c1c;
+}
+
+/* Utility Classes */
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+
+.message {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  animation: slideInDown 0.3s ease-out;
+}
+
+.message.success {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.message.error {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.message.warning {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Improvements */
+@media (max-width: 960px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  .sidebar nav {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .sidebar nav a {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid.two-column {
+    grid-template-columns: 1fr;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar .logo {
+    font-size: 1rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .primary-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
